@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Editorial-academic design system.
+ * Light = warm paper; Dark = deep ink-navy. Amber accent for citations,
+ * teal accent for retrieval-debug surfaces. All values are HSL channels so
+ * Tailwind's hsl(var(--token)) composition works with opacity modifiers.
+ */
+@layer base {
+  :root {
+    --background: 40 30% 97%;        /* warm paper */
+    --foreground: 222 32% 16%;       /* ink */
+    --surface: 40 33% 99%;           /* cards */
+    --surface-muted: 40 20% 94%;     /* subtle panels */
+
+    --primary: 219 56% 26%;          /* UPI deep navy */
+    --primary-foreground: 40 33% 98%;
+
+    --accent: 36 84% 48%;            /* amber/gold - citations */
+    --accent-foreground: 222 40% 12%;
+
+    --teal: 184 54% 32%;             /* retrieval debug */
+    --teal-foreground: 180 40% 96%;
+
+    --muted: 40 16% 90%;
+    --muted-foreground: 222 14% 42%;
+
+    --destructive: 0 65% 48%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 40 18% 86%;
+    --input: 40 18% 86%;
+    --ring: 219 56% 40%;
+
+    --radius: 0.85rem;
+  }
+
+  .dark {
+    --background: 222 38% 9%;         /* deep ink-navy */
+    --foreground: 40 24% 92%;
+    --surface: 222 32% 13%;
+    --surface-muted: 222 26% 17%;
+
+    --primary: 214 70% 62%;          /* lifted navy for contrast on dark */
+    --primary-foreground: 222 45% 10%;
+
+    --accent: 38 88% 58%;            /* warmer amber on dark */
+    --accent-foreground: 222 45% 10%;
+
+    --teal: 182 50% 52%;
+    --teal-foreground: 222 45% 10%;
+
+    --muted: 222 22% 20%;
+    --muted-foreground: 220 14% 64%;
+
+    --destructive: 0 62% 56%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 222 20% 22%;
+    --input: 222 20% 24%;
+    --ring: 214 70% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  /* Distinctive academic display face for headings + brand. */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    @apply font-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  /* Thin, unobtrusive scrollbars that match the theme. */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* A faint paper grain for atmosphere in light mode. */
+  .paper-grain {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / 0.025) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 4px 4px;
+  }
+}
+
+/* --- Markdown prose styling (scoped to .prose-chat) --- */
+.prose-chat {
+  @apply text-[15px] leading-7 text-foreground;
+}
+.prose-chat p {
+  @apply my-3;
+}
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3 {
+  @apply font-serif font-semibold mt-5 mb-2 leading-snug;
+}
+.prose-chat h1 {
+  @apply text-xl;
+}
+.prose-chat h2 {
+  @apply text-lg;
+}
+.prose-chat h3 {
+  @apply text-base;
+}
+.prose-chat ul {
+  @apply my-3 ml-5 list-disc space-y-1;
+}
+.prose-chat ol {
+  @apply my-3 ml-5 list-decimal space-y-1;
+}
+.prose-chat a {
+  @apply text-primary underline underline-offset-2 hover:opacity-80;
+}
+.prose-chat blockquote {
+  @apply border-l-2 border-accent pl-4 italic text-muted-foreground my-3;
+}
+.prose-chat code:not(pre code) {
+  @apply rounded bg-surface-muted px-1.5 py-0.5 font-mono text-[13px];
+}
+.prose-chat pre {
+  @apply my-4 overflow-x-auto rounded-lg bg-[hsl(222_32%_12%)] p-4 text-[13px] leading-6 scrollbar-thin;
+}
+.prose-chat pre code {
+  @apply font-mono text-[hsl(40_24%_90%)];
+}
+.prose-chat table {
+  @apply my-4 w-full border-collapse text-sm;
+}
+.prose-chat th,
+.prose-chat td {
+  @apply border border-border px-3 py-1.5 text-left;
+}
+.prose-chat th {
+  @apply bg-surface-muted font-semibold;
+}
+
+/* highlight.js theme bridged to our tokens (dark code blocks in both themes). */
+.hljs {
+  color: hsl(40 24% 88%);
+  background: transparent;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in {
+  color: hsl(214 70% 70%);
+}
+.hljs-string,
+.hljs-attr {
+  color: hsl(150 45% 62%);
+}
+.hljs-number,
+.hljs-literal {
+  color: hsl(36 84% 64%);
+}
+.hljs-comment {
+  color: hsl(220 12% 55%);
+  font-style: italic;
+}
+.hljs-title,
+.hljs-function {
+  color: hsl(38 88% 66%);
+}

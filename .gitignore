@@ -1,0 +1,76 @@
+# =============================================================================
+# RAG UPI — .gitignore
+# =============================================================================
+# Keep ONLY source code + notebooks + docs. Skip data, models, indexes, secrets,
+# venvs, node_modules. Large files would exceed GitHub's 100 MB hard limit.
+
+# -- Datasets and pipeline artefacts (huge + reproducible) -------------------
+Dataset/
+!Dataset/.gitkeep
+Results from Drive/
+
+# -- Python venvs / caches --------------------------------------------------
+**/.venv/
+**/.venv-*/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# -- Node ---------------------------------------------------------------------
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+**/dist/
+*.tsbuildinfo
+.eslintcache
+
+# -- Secrets / env -----------------------------------------------------------
+**/.env
+**/.env.local
+**/.env.*.local
+**/*.pem
+**/*.key
+**/secrets.json
+
+# -- IDE / OS ----------------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -- Jupyter / notebook outputs (keep notebook structure, strip outputs) ----
+**/.ipynb_checkpoints/
+
+# -- Logs / temp -------------------------------------------------------------
+logs/
+*.log
+*.tmp
+*.bak
+
+# -- Helper / scratch scripts (one-off patchers) -----------------------------
+Source code/_patch_*.py
+Source code/_build_*.py
+Source code/_rebuild_*.py
+Source code/_modify_*.py
+Source code/_nb1_cells/
+Source code/duplicate_report.csv
+Claude/_patch_*.py
+
+# -- Hugging Face cache ------------------------------------------------------
+.cache/
+hf_cache/
+
+# -- FAISS shards (huge, regenerable) ---------------------------------------
+**/shards/
+**/*.npy
+**/*.index
+**/*.faiss
+
+# -- code-review-skill external repo (not ours) ------------------------------
+code-review-skill-main/
